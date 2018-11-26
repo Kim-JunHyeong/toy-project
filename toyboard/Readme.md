@@ -15,7 +15,7 @@
 
 
 
-## TODO List
+## TODO List (완성되면 목차로!)
 - [ ] 01 - [프로젝트 생성]()
 - [ ] 02 - [회원가입 구현하기]()
 - [ ] 03 - [로그인 구현하기]()
@@ -27,15 +27,15 @@
 - [ ] 09 - [답글 기능 구현하기]()
 - [ ] 10 - [수정, 삭제 기능 구현하기]()
 - [ ] 11 - [파일 업로드 기능 구현하기]()
+- [ ] 12 - [AWS를 이용하여 호스팅하기]()
+- [ ] 이후 디자인을 CSS로 변경, 간단한 관리자 기능 추가, Spring Security로 변경해 볼 것
 
 
 
 ## ERD
-![toy_board](https://github.com/Kim-JunHyeong/toy-project/blob/develop/toyboard/doc/images/toy_board_ERD.PNG)
+![toy_board](https://github.com/Kim-JunHyeong/toy-project/blob/develop/toyboard/doc/00_toy_board_ERD.PNG)
 
 
 
 ## 완성 후 작성
-
-
 
