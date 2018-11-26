@@ -38,7 +38,7 @@ WHERE id = :id;
 
 - 게시판 목록 보기
 ```sql
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 WHERE category_id = :category_id 
 ORDER BY origin_id DESC, reply_seq ASC;
@@ -48,7 +48,7 @@ ORDER BY origin_id DESC, reply_seq ASC;
 - 게시글 조회: 이름
 ```sql
 -- 2개의 테이블을 조인하는 경우
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 WHERE category_id = :category_id AND m.nickname = :m.nickname
 ORDER BY b.origin_id DESC, b.reply_seq ASC;
@@ -57,7 +57,7 @@ ORDER BY b.origin_id DESC, b.reply_seq ASC;
 - 게시글 조회: 제목
 ```sql
 -- 2개의 테이블을 조인해서 보여주는 경우
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 WHERE b.category_id = :b.category_id AND b.title LIKE %:b.title% 
 ORDER BY b.origin_id DESC, b.reply_seq ASC;
@@ -68,7 +68,7 @@ ORDER BY b.origin_id DESC, b.reply_seq ASC;
 - 게시글 조회: 내용
 ```sql
 -- 3개의 테이블을 조인하는 방법
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 INNER JOIN board_body AS bb ON b.id = bb.id 
 WHERE b.category = :b.category AND bb.content LIKE %:bb.content% AND b.is_deleted = 0 
@@ -78,7 +78,7 @@ ORDER BY b.origin_id DESC, b.reply_seq ASC;
 - 게시글 조회: 제목+내용
 ```sql
 -- 3개의 테이블을 조인하는 방법
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 INNER JOIN board_body AS bb ON b.id = bb.id 
 WHERE b.category=:b.category AND 
@@ -88,13 +88,16 @@ ORDER BY b.origin_id DESC, b.reply_seq ASC;
 
 - 게시물 상세보기
 ```sql
-SELECT b.id, b.origin_id, b.depth, b.reply_seq, b.category_id, m.nickname, b.title, b.ip_addr, b.reg_date, bb.content 
+SELECT b.id, b.category_id, m.nickname, b.origin_id, b.depth, b.reply_seq, b.hits, b.title, b.ip_addr, b.reg_date, bb.content 
 FROM board AS b INNER JOIN member AS m ON b.member_id = m.id 
 INNER JOIN board_body AS bb ON b.id = bb.id 
 WHERE bb.id = :b.id;
 
+-- 게시물을 누군가가 보면 조회수가 늘어나야 함
+UPDATE board SET hits = hits + 1 WHERE board_id = :board_id;
+
 -- 댓글 List
-SELECT c.id, c.parent_comment_id, c.seq, m.name, c.content, c.ip_addr, c.reg_date 
+SELECT c.id, c.parent_comment_id, c.seq, m.nickname, c.content, c.ip_addr, c.reg_date 
 FROM comment AS c INNER JOIN member AS m ON c.member_id = m.id
 WHERE board_id = :board_id 
 ORDER BY parent_comment_id DESC, seq ASC;
@@ -108,7 +111,7 @@ ORDER BY parent_comment_id DESC, seq ASC;
 - 게시물 저장
 ```sql
 -- board 와 관련된 내용을 저장하고 board_body에 해당 board_id에 맞는 본문을 저장한다.
-INSERT INTO board (id, origin_id, depth, reply_seq, category_id, member_id, title, ip_addr, reg_date) 
+INSERT INTO board (id, category_id, member_id, origin_id, depth, reply_seq, hits, title, ip_addr, reg_date) 
 VALUES (null, :origin_id, :depth, :reply_seq, :category_id, :member_id, :title, :ip_addr, NOW());
 
 INSERT INTO board_body (id, content) VALUES (:board_id, :content);
