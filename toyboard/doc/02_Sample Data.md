@@ -107,5 +107,16 @@ INSERT INTO board_body (id, content) VALUES (10, '잘 부탁드릴게요 (_ _)')
 INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 2, 1, 2, 0, '숙지!', '192.168.10.20', NOW());
 INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 3, 1, 3, 0, '알겠습니다~ :)', '192.168.10.20', NOW());
 INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 6, 1, 4, 0, '넵~~!', '192.168.10.20', NOW());
+
+-- 6번 게시글에 대한 댓글 (parent_comment_id = 자신과 동일)
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 2, 6, 4, 0, '열심히 합시다!', '192.168.10.20', NOW());
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 4, 6, 5, 0, '화이팅!', '192.168.10.40', NOW());
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 7, 6, 6, 0, '같이 잘 해봐요~', '192.168.10.70', NOW());
+
+-- 6번 게시글에 대한 댓글에 댓글 (parent_comment_id = 해당 댓글의 값)
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 6, 6, 4, 1, '네! 열심히 하겠습니다!', '192.168.10.60', NOW());
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 6, 6, 5, 1, '화이팅!!!!!', '192.168.10.60', NOW());
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 6, 6, 6, 1, '잘 부탁드려요 ^^', '192.168.10.60', NOW());
+INSERT INTO comment (id, member_id, board_id, parent_comment_id, seq, content, ip_addr, reg_date) VALUES (null, 7, 6, 6, 2, ':)', '192.168.10.70', NOW());
 ```
 
