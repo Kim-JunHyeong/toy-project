@@ -9,7 +9,7 @@
 - Framework : Spring 4.3.5
 - WEB Server : Apache
 - WAS Server : Tomcat 8.5
-- Database : Mysql 5.7.24
+- Database : Mysql 8.0.13
 - Build Tool : Maven 3.6.1
 - IDE : IntelliJ Ultimate
 
