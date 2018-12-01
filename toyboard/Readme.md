@@ -12,6 +12,7 @@
 - Database : Mysql 8.0.13
 - Build Tool : Maven 3.6.1
 - IDE : IntelliJ Ultimate
+- Cloud : AWS E2
 
 
 
