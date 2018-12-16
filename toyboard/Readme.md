@@ -34,7 +34,7 @@
 
 
 
-## ERD
+## ERD(수정필요)
 ![toy_board](https://github.com/Kim-JunHyeong/toy-project/blob/develop/toyboard/doc/00_toy_board_ERD.PNG)
 
 
